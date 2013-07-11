@@ -509,11 +509,7 @@ public class PullToRefreshAttacher implements View.OnTouchListener {
          * @return Context which should be used for inflating the header layout
          */
         public Context getContextForInflater(Activity activity) {
-            if (Build.VERSION.SDK_INT >= 14) {
-                return activity.getActionBar().getThemedContext();
-            } else {
-                return activity;
-            }
+            return activity;
         }
     }
 
