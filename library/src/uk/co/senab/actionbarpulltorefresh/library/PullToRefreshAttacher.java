@@ -125,19 +125,29 @@ public class PullToRefreshAttacher implements View.OnTouchListener {
             throw new IllegalArgumentException("Must supply valid layout id for header.");
         }
         mHeaderView.setVisibility(View.GONE);
+        mHeaderView.setPadding(0, getStatusBarHeight(activity), 0, 0);
 
         // Create DecorChildLayout which will move all of the system's decor view's children + the
         // Header View to itself. See DecorChildLayout for more info.
-        DecorChildLayout decorContents = new DecorChildLayout(activity, decorView, mHeaderView);
+        //DecorChildLayout decorContents = new DecorChildLayout(activity, decorView, mHeaderView);
 
         // Now add the DecorChildLayout to the decor view
-        decorView.addView(decorContents, ViewGroup.LayoutParams.MATCH_PARENT,
+        decorView.addView(mHeaderView, ViewGroup.LayoutParams.MATCH_PARENT, 
                 ViewGroup.LayoutParams.MATCH_PARENT);
 
         // Notify transformer
         mHeaderTransformer.onViewCreated(activity, mHeaderView);
     }
 
+    private int getStatusBarHeight(Activity activity) { 
+        int result = 0;
+        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = activity.getResources().getDimensionPixelSize(resourceId);
+        } 
+        return result;
+    }
+    
     /**
      * Set the view which will be used to initiate refresh requests and a listener to be invoked
      * when a refresh is started. This version of the method will try to find a handler for the
