@@ -148,6 +148,7 @@ public class PullToRefreshAttacher implements View.OnTouchListener {
      */
     public void setRefreshableView(View view, OnRefreshListener refreshListener) {
         setRefreshableView(view, null, refreshListener);
+        resetTouch();
     }
 
     /**
@@ -241,6 +242,7 @@ public class PullToRefreshAttacher implements View.OnTouchListener {
      */
     public final void setRefreshComplete() {
         setRefreshingInt(false, false);
+        resetTouch();
     }
 
     /**
